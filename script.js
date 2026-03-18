@@ -79,7 +79,7 @@ function diffCalendarParts(start, end) {
 }
 
 function buildShareText(parts) {
-  return `${parts.years} year(s), ${parts.months} month(s), ${parts.days} day(s), ${pad(parts.hours)}h ${pad(parts.minutes)}m ${pad(parts.seconds)}s left until GTA VI on 11/19/2026.`;
+  return `GTA VI launches on November 19, 2026. Time left: ${parts.years} year(s), ${parts.months} month(s), ${parts.days} day(s), ${pad(parts.hours)}h ${pad(parts.minutes)}m ${pad(parts.seconds)}s.`;
 }
 
 function launchEmojiBurst() {
