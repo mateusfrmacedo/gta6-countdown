@@ -250,11 +250,11 @@ h1 {
 
 .progress-end-celebration {
   position: absolute;
-  right: 0;
-  bottom: calc(100% - 4px);
+  left: 100%;
+  top: 50%;
   width: 66px;
   height: 66px;
-  transform: translate(18%, -2%);
+  transform: translate(8px, -50%);
 }
 
 .progress-character-end {
@@ -264,21 +264,6 @@ h1 {
   height: 60px;
   pointer-events: auto;
   cursor: pointer;
-}
-
-.progress-end-tag {
-  position: absolute;
-  top: 6px;
-  right: 26px;
-  display: flex;
-  align-items: center;
-  color: rgba(255, 244, 250, 0.92);
-  font-family: "ViceDisplay", "ViceSans", sans-serif;
-  font-size: 0.84rem;
-  letter-spacing: 0.03em;
-  transform: rotate(-2deg);
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.24);
-  pointer-events: none;
 }
 
 .progress-value {
@@ -435,15 +420,8 @@ h1 {
 .share-icon-button {
   width: 54px;
   padding: 0;
-  background: linear-gradient(90deg, var(--sunset), var(--hot-pink));
-}
-
-.share-icon-button.is-copied {
-  background: linear-gradient(90deg, #14965f, #29cf7b);
-}
-
-.share-icon-button.has-error {
-  background: linear-gradient(90deg, #b63f58, #ff6f7f);
+  color: #12070d;
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .share-icon {
@@ -489,5 +467,9 @@ h1 {
 
   .share-button {
     width: 54px;
+  }
+
+  .progress-end-celebration {
+    transform: translate(4px, -50%);
   }
 }
