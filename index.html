@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTA VI Countdown</title>
+    <meta
+      name="description"
+      content="Countdown to GTA VI launching on November 19, 2026."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero-card">
+        <div class="brand-lockup">
+          <img class="game-logo" src="./logo.png" alt="Logo GTA VI" />
+          <div>
+            <h1>19 de novembro de 2026</h1>
+          </div>
+        </div>
+
+        <section class="progress-panel" aria-labelledby="progress-title">
+          <div class="progress-end-tag">
+            <span>Silver472 Day 🎉</span>
+          </div>
+
+          <div class="progress-heading">
+            <p class="progress-value" id="progressValue">0%</p>
+          </div>
+
+          <div
+            class="progress-track"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Progress until launch"
+          >
+            <img
+              class="progress-character progress-character-start"
+              src="./silver-wait.png"
+              alt="Silver waiting"
+            />
+            <div class="progress-fill" id="progressFill"></div>
+            <div class="progress-end-celebration" id="progressCelebration">
+              <div class="emoji-burst" id="emojiBurst" aria-hidden="true"></div>
+              <img
+                class="progress-character progress-character-end"
+                src="./silver-happy.webp"
+                alt="Silver happy"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section class="countdown-panel" aria-labelledby="countdown-title">
+          <div class="countdown-header">
+            <p class="panel-kicker" id="countdown-title">Time Remaining</p>
+          </div>
+
+          <div class="countdown-grid">
+            <article class="time-card">
+              <span class="time-value" id="years">00</span>
+              <span class="time-label">Years</span>
+            </article>
+            <article class="time-card">
+              <span class="time-value" id="months">00</span>
+              <span class="time-label">Months</span>
+            </article>
+            <article class="time-card">
+              <span class="time-value" id="days">00</span>
+              <span class="time-label">Days</span>
+            </article>
+            <article class="time-card">
+              <span class="time-value" id="hours">00</span>
+              <span class="time-label">Hours</span>
+            </article>
+            <article class="time-card">
+              <span class="time-value" id="minutes">00</span>
+              <span class="time-label">Minutes</span>
+            </article>
+            <article class="time-card">
+              <span class="time-value" id="seconds">00</span>
+              <span class="time-label">Seconds</span>
+            </article>
+            <article class="time-card accent-card">
+              <span class="time-value" id="milliseconds">000</span>
+              <span class="time-label">Milliseconds</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="share-panel">
+          <div class="share-actions">
+            <button
+              class="share-button share-icon-button"
+              id="shareButton"
+              type="button"
+              aria-label="Share countdown"
+              title="Share"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                focusable="false"
+                class="share-icon"
+                fill="none"
+              >
+                <path
+                  d="M12 16V6m0 0-3.5 3.5M12 6l3.5 3.5M6 14.5V17a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-2.5"
+                />
+              </svg>
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
