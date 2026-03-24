@@ -1,5 +1,5 @@
 const launchDate = new Date("2026-11-19T00:00:00-03:00");
-const countdownStart = new Date("2026-03-18T00:00:00-03:00");
+const countdownStart = new Date("2023-11-08T00:00:00-03:00");
 const siteUrl = "https://mateusfrmacedo.github.io/gta6-countdown/";
 const timeUnits = {
   day: 24 * 60 * 60 * 1000,

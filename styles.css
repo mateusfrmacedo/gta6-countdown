@@ -281,7 +281,7 @@ h1 {
   top: 0;
   width: 0;
   height: 100%;
-  transform: translateX(var(--progress-ratio, 0%));
+  transform: translateX(calc(var(--progress-ratio, 0%) + 20px));
   will-change: transform;
 }
 
@@ -303,7 +303,7 @@ h1 {
 .progress-character-start {
   left: 0;
   top: 0;
-  transform: translateX(-50%);
+  transform: translateX(-20%);
 }
 
 .progress-character-end {
