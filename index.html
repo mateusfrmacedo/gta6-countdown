@@ -21,33 +21,35 @@
         </div>
 
         <section class="progress-panel" aria-labelledby="progress-title">
-          <div class="progress-heading">
-            <p class="progress-value" id="progressValue">0%</p>
-          </div>
-
-          <div
-            class="progress-track"
-            role="progressbar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            aria-valuenow="0"
-            aria-label="Progress until launch"
-          >
-            <img
-              class="progress-character progress-character-start"
-              src="./silver-wait.png"
-              alt="Silver waiting"
-            />
-            <div class="progress-fill" id="progressFill"></div>
-            <div class="progress-end-celebration" id="progressCelebration">
-              <div class="emoji-burst" id="emojiBurst" aria-hidden="true"></div>
-              <img
-                class="progress-character progress-character-end"
-                src="./silver-happy.webp"
-                alt="Silver happy"
-              />
+          <div class="progress-shell">
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow="0"
+              aria-label="Progress until launch"
+            >
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-characters" aria-hidden="true">
+              <div class="progress-waiter" id="progressWaiter">
+                <img
+                  class="progress-character progress-character-start"
+                  src="./silver-wait.png"
+                  alt=""
+                />
+              </div>
+              <div class="progress-finish">
+                <img
+                  class="progress-character progress-character-end"
+                  src="./silver-happy.webp"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
+          <p class="progress-value" id="progressValue">0%</p>
         </section>
 
         <section class="countdown-panel" aria-labelledby="countdown-title">

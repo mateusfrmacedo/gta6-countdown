@@ -1,5 +1,6 @@
 const launchDate = new Date("2026-11-19T00:00:00-03:00");
 const countdownStart = new Date("2026-03-18T00:00:00-03:00");
+const siteUrl = "https://mateusfrmacedo.github.io/gta6-countdown/";
 const timeUnits = {
   day: 24 * 60 * 60 * 1000,
   hour: 60 * 60 * 1000,
@@ -24,10 +25,11 @@ const units = {
 const progressFill = document.getElementById("progressFill");
 const progressTrack = document.querySelector(".progress-track");
 const progressValue = document.getElementById("progressValue");
-const progressCelebration = document.getElementById("progressCelebration");
-const emojiBurst = document.getElementById("emojiBurst");
+const progressWaiter = document.getElementById("progressWaiter");
 const shareButton = document.getElementById("shareButton");
 const root = document.documentElement;
+const finePointerQuery = window.matchMedia("(pointer: fine)");
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let latestShareText =
   "GTA VI is getting closer. Share the countdown.";
@@ -35,7 +37,6 @@ let pointerTargetX = 0;
 let pointerTargetY = 0;
 let pointerCurrentX = 0;
 let pointerCurrentY = 0;
-let burstCooldown = false;
 
 function pad(value, size = 2) {
   return String(value).padStart(size, "0");
@@ -79,51 +80,37 @@ function diffCalendarParts(start, end) {
 }
 
 function buildShareText(parts) {
-  return `GTA VI launches on November 19, 2026. Time left: ${parts.years} year(s), ${parts.months} month(s), ${parts.days} day(s), ${pad(parts.hours)}h ${pad(parts.minutes)}m ${pad(parts.seconds)}s. ${window.location.href}`;
-}
-
-function launchEmojiBurst() {
-  if (!emojiBurst || burstCooldown) {
-    return;
-  }
-
-  burstCooldown = true;
-  const emojis = ["🎉", "🎊", "✨", "🥳", "🎆"];
-
-  for (let index = 0; index < 8; index += 1) {
-    const piece = document.createElement("span");
-    piece.className = "emoji-pop";
-    piece.textContent = emojis[index % emojis.length];
-    piece.style.setProperty("--emoji-x", `${Math.round((Math.random() - 0.5) * 92)}px`);
-    piece.style.setProperty("--emoji-y", `${Math.round(Math.random() * -22)}px`);
-    piece.style.setProperty("--emoji-rotate", `${Math.round((Math.random() - 0.5) * 70)}deg`);
-    piece.style.animationDelay = `${index * 45}ms`;
-    emojiBurst.appendChild(piece);
-    window.setTimeout(() => {
-      piece.remove();
-    }, emojiCleanupDelay);
-  }
-
-  window.setTimeout(() => {
-    burstCooldown = false;
-  }, emojiCooldownDelay);
+  return `GTA VI launches on November 19, 2026. Right now there are ${parts.years} year(s), ${parts.months} month(s), ${parts.days} day(s), ${pad(parts.hours)}h ${pad(parts.minutes)}m ${pad(parts.seconds)}s and ${pad(parts.milliseconds, 3)}ms left. Track the countdown: ${siteUrl}`;
 }
 
 function updateParallax() {
+  if (!finePointerQuery.matches || reducedMotionQuery.matches) {
+    if (pointerCurrentX !== 0 || pointerCurrentY !== 0) {
+      pointerCurrentX *= 0.8;
+      pointerCurrentY *= 0.8;
+      if (Math.abs(pointerCurrentX) < 0.05) {
+        pointerCurrentX = 0;
+      }
+      if (Math.abs(pointerCurrentY) < 0.05) {
+        pointerCurrentY = 0;
+      }
+      root.style.setProperty("--bg-shift-x", `${pointerCurrentX}px`);
+      root.style.setProperty("--bg-shift-y", `${pointerCurrentY}px`);
+    }
+    return;
+  }
+
   pointerCurrentX += (pointerTargetX - pointerCurrentX) * 0.08;
   pointerCurrentY += (pointerTargetY - pointerCurrentY) * 0.08;
 
   root.style.setProperty("--bg-shift-x", `${pointerCurrentX}px`);
   root.style.setProperty("--bg-shift-y", `${pointerCurrentY}px`);
-
-  window.requestAnimationFrame(updateParallax);
 }
 
 async function handleShare() {
   const shareData = {
     title: "GTA VI Countdown",
     text: latestShareText,
-    url: window.location.href,
   };
 
   if (navigator.share) {
@@ -138,7 +125,7 @@ async function handleShare() {
   }
 
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    await navigator.clipboard.writeText(`${latestShareText} ${window.location.href}`);
+    await navigator.clipboard.writeText(latestShareText);
     shareButton.classList.add("is-copied");
     window.setTimeout(() => {
       shareButton.classList.remove("is-copied");
@@ -168,13 +155,17 @@ function updateCountdown() {
   progressFill.style.width = progressLabel;
   progressValue.textContent = progressLabel;
   progressTrack.setAttribute("aria-valuenow", progress.toFixed(2));
+  if (progressWaiter) {
+    progressWaiter.style.setProperty("--progress-ratio", `${progress}%`);
+  }
 
   const shareText =
     remainingMs > 0
       ? buildShareText(parts)
-      : "GTA VI is here. The countdown ended on 11/19/2026.";
+      : `GTA VI is here. The countdown ended on November 19, 2026. Track the countdown: ${siteUrl}`;
 
   latestShareText = shareText;
+  updateParallax();
 
   if (remainingMs > 0) {
     window.requestAnimationFrame(updateCountdown);
@@ -196,17 +187,11 @@ window.addEventListener("mousemove", (event) => {
 
   pointerTargetX = offsetX * -28;
   pointerTargetY = offsetY * -18;
-});
+}, { passive: true });
 
 window.addEventListener("mouseleave", () => {
   pointerTargetX = 0;
   pointerTargetY = 0;
 });
 
-if (progressCelebration) {
-  progressCelebration.addEventListener("mouseenter", launchEmojiBurst);
-  progressCelebration.addEventListener("mousemove", launchEmojiBurst);
-}
-
-updateParallax();
 updateCountdown();
